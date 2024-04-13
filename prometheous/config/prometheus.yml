@@ -1,0 +1,31 @@
+global:
+  scrape_interval: 15s # By default, scrape targets every 15 seconds.
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: "sample-monitor"
+
+rule_files:
+  - "rules/*.yml"
+
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+        - targets:
+            - "alertmanager.sample.com:9093"
+      basic_auth:
+        username: admin
+        password: testing
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label \`job=<job_name>\` to any timeseries scraped from this config.
+  - job_name: sample_metrics
+    scheme: http
+    metrics_path: /nested/metrics
+    static_configs:
+      - targets:
+          - express-prom-client-v1qz.onrender.com

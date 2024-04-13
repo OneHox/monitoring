@@ -1,0 +1,7 @@
+# https://bcrypt-generator.com/
+
+basic_auth_users:
+    admin: $2a$12$dKsD/c76UdK4pciMclD.7uM/Q3IGxDPQmImLT/AAmWqACCBHaSSjq
+
+# isername: admin
+# password: testing

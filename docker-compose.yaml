@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+
+  prometheus:
+    user: root
+    build: prometheous
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --web.config.file=/etc/prometheus/web.yml
+      - --web.enable-lifecycle
+    ports:
+      - 9090:9090
+    networks:
+      - prometheus
+
+  alertmanager:
+    user: root
+    build: alertmanager
+    command:
+      - --config.file=/etc/prometheus/alertmanager.yml
+      - --web.config.file=/etc/prometheus/web.yml
+    ports:
+      - 9093:9093
+    networks:
+      - prometheus
+
+  grafana:
+    user: root
+    build: grafana
+    ports:
+      - 3000:3000
+    networks:
+      - prometheus
+
+networks:
+  prometheus:
+    name: prometheus

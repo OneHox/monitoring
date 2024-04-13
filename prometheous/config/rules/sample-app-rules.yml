@@ -1,0 +1,10 @@
+groups:
+  - name: SiteDown
+    rules:
+    - alert: 'Sample App Offline Alert'
+      expr: up{instance="express-prom-client-v1qz.onrender.com:80", job="sample_metrics"} == 0
+      for: 5s
+      annotations:
+        summary: "Sample App Offline : {{.instance}}"
+        description: "Sample App Offline  : {{.instance}}"
+        custom: "sample app"
